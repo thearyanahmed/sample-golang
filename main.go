@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+		"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -41,25 +42,10 @@ func main() {
 
 	http.HandleFunc("/cached", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
-		maxAgeParams, ok := r.URL.Query()["max-age"]
-		if ok && len(maxAgeParams) > 0 {
-			maxAge, _ := strconv.Atoi(maxAgeParams[0])
-			w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", maxAge))
-		}
-		responseHeaderParams, ok := r.URL.Query()["headers"]
-		if ok {
-			for _, header := range responseHeaderParams {
-				h := strings.Split(header, ":")
-				w.Header().Set(h[0], strings.TrimSpace(h[1]))
-			}
-		}
-		statusCodeParams, ok := r.URL.Query()["status"]
-		if ok {
-			statusCode, _ := strconv.Atoi(statusCodeParams[0])
-			w.WriteHeader(statusCode)
-		}
-		requestID := uuid.Must(uuid.NewV4())
-		fmt.Fprint(w, requestID.String())
+
+			log.Println("Panic endpoint hit! The server will now panic and restart.")
+			panic("Intentional panic to restart container")
+		
 	})
 
 	http.HandleFunc("/headers", func(w http.ResponseWriter, r *http.Request) {
