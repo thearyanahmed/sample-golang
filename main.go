@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-		"log"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -43,9 +43,9 @@ func main() {
 	http.HandleFunc("/cached", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
 
-			log.Println("Panic endpoint hit! The server will now panic and restart.")
-			panic("Intentional panic to restart container")
-		
+		log.Println("Panic endpoint hit! The server will now panic and restart.")
+//		panic("Intentional panic to restart container")
+
 	})
 
 	http.HandleFunc("/headers", func(w http.ResponseWriter, r *http.Request) {
