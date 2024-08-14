@@ -53,7 +53,7 @@ func main() {
 		logRequest(r)
 
 		log.Println("Panic endpoint hit! The server will now panic and restart.")
-//		panic("Intentional panic to restart container")
+		panic("Intentional panic to restart container")
 
 	})
 
