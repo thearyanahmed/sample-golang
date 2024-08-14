@@ -40,6 +40,15 @@ func main() {
 		fmt.Fprintf(w, "Hello! you've requested %s\n", r.URL.Path)
 	})
 
+	
+	http.HandleFunc("/proto", func(w http.ResponseWriter, r *http.Request) {
+		logRequest(r)
+
+				fmt.Fprint(w, "r.Proto: %v, Major: %d, Minor: %d\n", r.Proto, r.ProtoMajor, r.ProtoMinor)
+
+
+	})
+
 	http.HandleFunc("/cached", func(w http.ResponseWriter, r *http.Request) {
 		logRequest(r)
 
