@@ -29,8 +29,16 @@ func main() {
 			return
 		}
 
-		// Write "pong" to the response if the ping was successful
-		fmt.Fprintln(w, "pong")
+		// Query the PostgreSQL version
+		var version string
+		err = db.QueryRow("SELECT version()").Scan(&version)
+		if err != nil {
+			http.Error(w, "Failed to retrieve PostgreSQL version", http.StatusInternalServerError)
+			return
+		}
+
+		// Write the response with "pong" and the PostgreSQL version
+		fmt.Fprintf(w, "pong\nPostgreSQL version: %s\n", version)
 	})
 
 	// Start the HTTP server
