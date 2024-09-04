@@ -11,7 +11,7 @@ import (
 
 func main() {
 	// Connection string (replace with your own)
-	connStr := "postgresql://db:AVNS_uslm4DS6tbBSr9xX7Nr@app-e9154229-f057-4817-8098-efe18e6e84b1-do-user-16220553-0.f.db.ondigitalocean.com:25060/db?sslmode=require"
+	connStr := "postgresql://db:AVNS_6iU_A7Lltq6S-GdVwE0@app-446cac4d-3248-4af4-b226-879f62f65df2-do-user-16220553-0.d.db.ondigitalocean.com:25060/db?sslmode=require"
 
 	// Open a connection to the database
 	db, err := sql.Open("postgres", connStr)
