@@ -3,6 +3,7 @@ package main
 import (
     "database/sql"
     "net/http"
+    "strings"
     "fmt"
     "log"
     "math/rand"
@@ -56,7 +57,7 @@ func main() {
         );`
         _, err = db.Exec(createTableSQL)
         if err != nil {
-            fmt.Fprintf(w, "something went wrong %w", err.Error())
+            fmt.Fprintf(w, "something went wrong %v", err.Error())
         }
 
         fmt.Fprintf(w, "done")
@@ -118,9 +119,6 @@ func main() {
 
         fmt.Fprint(w, "requestID.String()")
     })
-
-
-
 
     port := os.Getenv("PORT")
     if port == "" {

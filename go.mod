@@ -1,8 +1,6 @@
-module github.com/digitalocean/sample-golang
+module github.com/thearyanahmed/sample-golang
 
-go 1.13
+go 1.19
 
-require (
-	github.com/go-sql-driver/mysql v1.8.1 // indirect
-	github.com/gofrs/uuid v3.3.0+incompatible // indirect
-)
+require github.com/go-sql-driver/mysql v1.8.1
+require filippo.io/edwards25519 v1.1.0 // indirect
