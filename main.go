@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"math/rand"
+	// "log"
+	// "math/rand"
 	"net/http"
 	"os"
 	"strings"
