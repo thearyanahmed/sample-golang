@@ -25,14 +25,29 @@ type User struct {
     Age  int
 }
 
+
+type DBConfig struct {
+	User     string
+	Password string
+	Host     string
+	Port     int
+	DBName   string
+}
+
 func main() {
 
-    connStr := os.Getenv("MYSQL_CONNECTION_STRING")
-    if connStr == "" {
-        log.Fatal("MYSQL_CONNECTION_STRING environment variable not set")
-    }
-
     // Open a connection to the MySQL database
+// Load the database configuration from environment variables
+	config := DBConfig{
+		User:     os.Getenv("DB_USER"),
+		Password: os.Getenv("DB_PASSWORD"),
+		Host:     os.Getenv("DB_HOST"),
+		Port:     25060, // Replace with your port
+		DBName:   os.Getenv("DB_NAME"),
+	}
+
+	// Build the MySQL connection string using the struct
+	connStr := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", config.User, config.Password, config.Host, config.Port, config.DBName)
     db, err := sql.Open("mysql", connStr)
     if err != nil {
         log.Fatal("Error opening database connection: ", err)
