@@ -46,8 +46,8 @@ func main() {
 		DBName:   os.Getenv("DB_NAME"),
 	}
 
+    connStr := fmt.Sprintf("%s://%s:%s@%s:%d/%s", "mysql", config.User, config.Password, config.Host, config.Port, config.DBName)
 	// Build the MySQL connection string using the struct
-	connStr := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?ssl-mode=REQUIRED", config.User, config.Password, config.Host, config.Port, config.DBName)
     fmt.Println(connStr)
     db, err := sql.Open("mysql", connStr)
     if err != nil {
