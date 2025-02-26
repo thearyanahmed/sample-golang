@@ -43,7 +43,7 @@ func main() {
 	fmt.Println()
 	fmt.Printf("==> Server listening at %s 🚀\n", bindAddr)
 
-	        graduallyIncreaseLoad(1*time.Minute, 5*time.Second, 10)
+	       go graduallyIncreaseLoad(1*time.Minute, 5*time.Second, 10)
 
 	if err := http.ListenAndServe(bindAddr, nil); err != nil {
 		panic(err)
