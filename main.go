@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	// "runtime"
-        // "sync"
+	"runtime"
+        "sync"
          "time"
 	"net/http"
 	"os"
