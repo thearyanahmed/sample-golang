@@ -12,8 +12,8 @@ func logRequest(r *http.Request) {
 	method := r.Method
 	fmt.Println("Got request!", method, uri)
 }
-func main() {
 
+func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
