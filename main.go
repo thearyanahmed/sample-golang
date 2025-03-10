@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"runtime"
-        "sync"
-         "time"
 	"net/http"
 	"os"
 	"strings"
