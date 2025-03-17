@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -22,7 +23,15 @@ func main() {
 		logRequest(r)
 		fmt.Fprintf(w, "Hello! you've requested %s\n", r.URL.Path)
 
-        for name, headers := range r.Header {
+        headerNames := make([]string, 0, len(r.Header))
+        for name := range r.Header {
+            headerNames = append(headerNames, name)
+        }
+
+        sort.Strings(headerNames)
+
+        for _, name := range headerNames {
+            headers := r.Header[name]
             for _, h := range headers {
                 fmt.Fprintf(w, " %v = %v\n", name, h)
             }
@@ -42,8 +51,7 @@ func main() {
 	}
 
 	bindAddr := fmt.Sprintf(":%s", port)
-	fmt.Println()
-	fmt.Printf("==> Server listening at %s 🚀\n", bindAddr)
+	fmt.Printf("\n ==> Server listening at %s 🚀\n", bindAddr)
 
 	if err := http.ListenAndServe(bindAddr, nil); err != nil {
 		panic(err)
