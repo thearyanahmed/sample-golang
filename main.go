@@ -86,6 +86,7 @@ func main() {
             return
         }
 
+        w.Header().Set("Cache-Control", "public, max-age=30")
         err = t.Execute(w, data)
         if err != nil {
             http.Error(w, err.Error(), http.StatusInternalServerError)
