@@ -70,6 +70,7 @@ func main() {
         <h1>Hello from Go!</h1>
         <p>Current time: {{.Now}}</p>
         <p>This page is to test Cloudflare caching.</p>
+        <p>Contact us at: <a href="mailto:test@example.com">test@example.com</a></p>
         <p>Random number for caching test: {{randInt 1000000}}</p>
         </body>
         </html>`
