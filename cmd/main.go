@@ -23,7 +23,7 @@ func main ( ) {
     case "test-email-obs":
         testEmailObs(os.Args[2])
     case "test-cache":
-        fmt.Println("todo!")
+        testCacheControl(os.Args[2]) 
     default:
         fmt.Println("Unknown command:", os.Args[1])
         os.Exit(1)
@@ -74,6 +74,41 @@ func testEmailObs(currentState string) {
     }
 
     fmt.Println("Email obfuscation test successful.")
+}
+
+func testCacheControl(currentState string) {
+    err := godotenv.Load()
+    if err != nil {
+        fmt.Println("Error loading .env file")
+        os.Exit(1)
+    }
+    // Replace with your test domain
+    testDomain := os.Getenv("TEST_DOMAIN")
+    if testDomain == "" {
+        fmt.Println("test domain not set")
+        os.Exit(1)
+    }
+
+    resp, err := http.Get(testDomain)
+    if err != nil {
+        fmt.Println("Error making HTTP request:", err)
+        os.Exit(1)
+    }
+    defer resp.Body.Close()
+
+    cacheControl := resp.Header.Get("Cf-Cache-Status")
+    cacheHit := strings.Contains(cacheControl, "HIT") // Or another relevant header check.
+
+    fmt.Printf("cache control %v for cf-cache-status\n", cacheControl)
+    if currentState == "disabled" && cacheHit {
+        fmt.Println("Assertion failed: Cache-Control should be disabled, but it is enabled.")
+        os.Exit(1)
+    } else if currentState == "enabled" && !cacheHit {
+        fmt.Println("Assertion failed: Cache-Control should be enabled, but it is disabled.")
+        os.Exit(1)
+    }
+
+    fmt.Println("Cache-Control test successful.")
 }
 
 func updateCustomMetadata(emailObs, cache string) {
