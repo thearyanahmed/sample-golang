@@ -45,8 +45,8 @@ func main() {
 	fmt.Println()
 	fmt.Printf("==> Server listening at %s 🚀\n", bindAddr)
 
-	if err := http.ListenAndServe(bindAddr, nil); err != nil {
-		panic(err)
-	}
+	go http.ListenAndServe(bindAddr, nil)
+
+	fmt.Println("exiting now")
 }
 
