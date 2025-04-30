@@ -29,6 +29,13 @@ func main() {
         }
 	})
 
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(541)
+	w.Write([]byte("Custom error: Something went wrong."))
+	})
+
+	
+
 
 	for _, encodedRoute := range strings.Split(os.Getenv("ROUTES"), ",") {
 		if encodedRoute == "" {
